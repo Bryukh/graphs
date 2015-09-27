@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/Bryukh/graphs/issues"
   },
-  "homepage": "https://github.com/Bryukh/graphs#readme"
+  "homepage": "https://github.com/Bryukh/graphs#readme",
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3"
+  }
 }

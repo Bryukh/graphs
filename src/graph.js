@@ -15,7 +15,7 @@ function Graph(isDirected, isWeighted) {
         if (keyToIdTable[key] === undefined) {
             var id = counterId++;
             keyToIdTable[key] = id;
-            this.nodes[id] = new Node(key, value);
+            this.nodes[id] = value;
             this.links[id] = {};
             return true;
         }
@@ -47,8 +47,26 @@ function Graph(isDirected, isWeighted) {
         return keyToIdTable[key] !== undefined;
     };
 
+    this.nodeValue = function(key) {
+        if (!this.hasNode(key)) {
+            return undefined;
+        }
+        else {
+            return this.nodes[keyToIdTable[key]];
+        }
+    };
+
     this.hasLink = function(key1, key2) {
         return this.hasNode(key1) && this.hasNode(key2) && this.links[key1][key2] !== undefined;
+    };
+
+    this.linkWeight = function(key1, key2) {
+        if (!this.hasLink(key1, key2)) {
+            return undefined;
+        }
+        else {
+            return this.links[keyToIdTable[key1]][keyToIdTable[key2]];
+        }
     }
 
 
