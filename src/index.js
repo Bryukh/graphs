@@ -3,5 +3,8 @@
 var graph = require("./graph.js");
 
 module.exports = {
-    emptyGraph: graph.emptyGraph
+    UndirectedUnweightedGraph: graph.createGraph(false, false),
+    DirectedUnweightedGraph: graph.createGraph(true, false),
+    DirectedWeightedGraph: graph.createGraph(true, true),
+    UndirectedWeightedGraph: graph.createGraph(false, true)
 };
