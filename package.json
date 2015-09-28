@@ -4,11 +4,12 @@
   "description": "Graph Data Structure Library",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "commit": "git-cz",
+    "test": "mocha src/index.test.js -w"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Bryukh/graphs.git"
+    "url": "https://github.com/Bryukh/graphs.git"
   },
   "keywords": [
     "graph",
@@ -22,6 +23,12 @@
   "homepage": "https://github.com/Bryukh/graphs#readme",
   "devDependencies": {
     "chai": "^3.3.0",
+    "commitizen": "^1.0.4",
+    "cz-conventional-changelog": "^1.1.2",
+    "ghooks": "^0.3.2",
     "mocha": "^2.3.3"
+  },
+  "czConfig": {
+    "path": "node_modules/cz-conventional-changelog"
   }
 }
