@@ -11,6 +11,13 @@ function Graph(isDirected, isWeighted) {
     this.nodes = {};
     this.links = {};
 
+    this.type = function() {
+        return {
+            weighted: isWeighted,
+            directed: isDirected
+        }
+    };
+
     this.addNode = function(key, value) {
         if (keyToIdTable[key] === undefined) {
             var id = counterId++;
