@@ -82,7 +82,6 @@ function Graph(isDirected, isWeighted) {
         }
     }
 
-
 }
 
 function createGraph(isDirected, isWeighted) {
