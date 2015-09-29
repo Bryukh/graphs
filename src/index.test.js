@@ -43,6 +43,22 @@ describe("Graph:", function () {
                 expect(g.hasNode("Three")).to.be.false;
                 expect(g.hasNode("Two")).to.be.true;
             });
+            it("Remove node without links in " + test.name, function () {
+                expect(g.removeNode("One")).to.be.true;
+                expect(g.hasNode("One")).to.be.false;
+                expect(g.hasNode("X")).to.be.false;
+                expect(g.addNode("One")).to.be.true;
+                expect(g.hasNode("One")).to.be.true;
+                expect(g.removeNode("ERR")).to.be.false;
+            });
+            it("Remove node with links in " + test.name, function () {
+                g.addLink("One", "Two");
+                g.addLink("One", "Three");
+                g.addLink("One", "Four");
+                g.removeNode("One");
+                expect(g.hasLink("One", "Two")).to.be.false;
+            });
+
         });
     });
 
