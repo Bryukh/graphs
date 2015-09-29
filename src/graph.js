@@ -2,9 +2,8 @@ function Graph(isDirected, isWeighted) {
     isDirected = isDirected || false;
     isWeighted = isWeighted || false;
     var counterId = 0,
-        keyToIdTable = {};
-    this.nodes = {};
-    this.links = {};
+        keyToIdTable = {},
+        links = {};
 
     this.type = function () {
         return {
@@ -13,54 +12,52 @@ function Graph(isDirected, isWeighted) {
         }
     };
 
-    this.addNode = function (key, value) {
+    this.addNode = function (key) {
         if (keyToIdTable[key] === undefined) {
             var id = counterId++;
             keyToIdTable[key] = id;
-            this.nodes[id] = value;
-            this.links[id] = {};
+            links[id] = {};
             return true;
         }
         return false;
     };
 
     this.addLink = function (key1, key2, weight) {
+        if (key1 === key2) {
+            return false;
+        }
+        if (this.hasLink(key1, key2)) {
+            return false;
+        }
         if (!isWeighted || weight === undefined) {
             weight = 1;
         }
-        if (isNaN(weight)) {
-            throw Error("Weight must be a number");
+        if (isNaN(weight) || typeof(weight) !== "number" || !isFinite(weight)) {
+            throw new TypeError("Weight must be a finite number");
+        }
+
+        if (!this.hasNode(key1)) {
+            this.addNode(key1);
+        }
+        if (!this.hasNode(key2)) {
+            this.addNode(key2);
         }
         var id1 = keyToIdTable[key1],
             id2 = keyToIdTable[key2];
-        if (id1 === undefined) {
-            throw(new Error("'" + key1 + "' is not found."));
-        }
-        if (id2 === undefined) {
-            throw(new Error("'" + key2 + "' is not found."));
-        }
-        this.links[id1][id2] = weight;
+        links[id1][id2] = weight;
         if (!isDirected) {
-            this.links[id2][id1] = weight;
+            links[id2][id1] = weight;
         }
+        return true;
     };
 
     this.hasNode = function (key) {
         return keyToIdTable[key] !== undefined;
     };
 
-    this.nodeValue = function (key) {
-        if (!this.hasNode(key)) {
-            return undefined;
-        }
-        else {
-            return this.nodes[keyToIdTable[key]];
-        }
-    };
-
     this.hasLink = function (key1, key2) {
         return this.hasNode(key1) && this.hasNode(key2) &&
-            this.links[keyToIdTable[key1]][keyToIdTable[key2]] !== undefined;
+            links[keyToIdTable[key1]][keyToIdTable[key2]] !== undefined;
     };
 
     this.removeLink = function(key1, key2) {
@@ -69,9 +66,9 @@ function Graph(isDirected, isWeighted) {
         }
         var id1 = keyToIdTable[key1],
             id2 = keyToIdTable[key2];
-        delete this.links[id1][id2];
+        delete links[id1][id2];
         if (!isDirected) {
-            delete this.links[id2][id1];
+            delete links[id2][id1];
         }
         return true;
     };
@@ -81,7 +78,7 @@ function Graph(isDirected, isWeighted) {
             return undefined;
         }
         else {
-            return this.links[keyToIdTable[key1]][keyToIdTable[key2]];
+            return links[keyToIdTable[key1]][keyToIdTable[key2]];
         }
     }
 
