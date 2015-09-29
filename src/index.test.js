@@ -51,5 +51,29 @@ describe("Graph", function () {
             });
         });
     });
+
+    describe("Add and has link", function(){
+        it("Add link in unweighted undirected graph", function(){
+            var g = graph.UndirectedUnweightedGraph();
+            g.addNode("One", 1);
+            g.addNode("Two", 2);
+            g.addNode("Three", 3);
+            g.addLink("One", "Two");
+            expect(g.hasLink("One", "Two")).to.be.true;
+            expect(g.hasLink("Two", "One")).to.be.true;
+            expect(g.hasLink("One", "Three")).to.be.false;
+            expect(g.hasLink("One", "Four")).to.be.false;
+            // Weight
+            expect(g.linkWeight("One", "Two")).to.be.equal(1);
+            expect(g.linkWeight("Two", "One")).to.be.equal(1);
+            expect(g.linkWeight("Two", "Three")).to.be.undefined;
+
+            // Exceptions
+            expect(function(){g.addLink("Four", "One")}).to.throw(Error, "'Four' is not found.");
+            expect(function(){g.addLink("One", "WWW")}).to.throw(Error, "'WWW' is not found.");
+
+        })
+    })
+
 });
 
