@@ -53,10 +53,13 @@ describe("Graph:", function () {
             });
             it("Remove node with links in " + test.name, function () {
                 g.addLink("One", "Two");
+                g.addLink("Two", "One");
                 g.addLink("One", "Three");
                 g.addLink("One", "Four");
                 g.removeNode("One");
+                g.addNode("One");
                 expect(g.hasLink("One", "Two")).to.be.false;
+                expect(g.hasLink("Two", "One")).to.be.false;
             });
 
         });
