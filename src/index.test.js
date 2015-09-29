@@ -58,7 +58,9 @@ describe("Graph", function () {
             g.addNode("One", 1);
             g.addNode("Two", 2);
             g.addNode("Three", 3);
+            g.addNode("Five", 5);
             g.addLink("One", "Two");
+            g.addLink("One", "Five");
             expect(g.hasLink("One", "Two")).to.be.true;
             expect(g.hasLink("Two", "One")).to.be.true;
             expect(g.hasLink("One", "Three")).to.be.false;
@@ -71,6 +73,13 @@ describe("Graph", function () {
             // Exceptions
             expect(function(){g.addLink("Four", "One")}).to.throw(Error, "'Four' is not found.");
             expect(function(){g.addLink("One", "WWW")}).to.throw(Error, "'WWW' is not found.");
+
+            // Remove
+            expect(g.removeLink("One", "Two")).to.be.true;
+            expect(g.hasLink("One", "Two")).to.be.false;
+            expect(g.hasLink("Two", "One")).to.be.false;
+            expect(g.removeLink("One", "Two")).to.be.false;
+            expect(g.linkWeight("Two", "One")).to.be.undefined;
 
         })
     })

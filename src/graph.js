@@ -63,6 +63,19 @@ function Graph(isDirected, isWeighted) {
             this.links[keyToIdTable[key1]][keyToIdTable[key2]] !== undefined;
     };
 
+    this.removeLink = function(key1, key2) {
+        if (!this.hasLink(key1, key2)) {
+            return false;
+        }
+        var id1 = keyToIdTable[key1],
+            id2 = keyToIdTable[key2];
+        delete this.links[id1][id2];
+        if (!isDirected) {
+            delete this.links[id2][id1];
+        }
+        return true;
+    };
+
     this.linkWeight = function (key1, key2) {
         if (!this.hasLink(key1, key2)) {
             return undefined;
