@@ -62,7 +62,7 @@ function Graph(isDirected, isWeighted) {
             links[keyToIdTable[key1]][keyToIdTable[key2]] !== undefined;
     };
 
-    this.removeLink = function(key1, key2) {
+    this.removeLink = function (key1, key2) {
         if (!this.hasLink(key1, key2)) {
             return false;
         }
@@ -84,16 +84,30 @@ function Graph(isDirected, isWeighted) {
         }
     };
 
-    this.connectedWith = function(key) {
+    this.connectedWith = function (key) {
         if (!this.hasNode(key)) {
             return undefined;
         }
         var result = [];
-        for (var k = 0, ids=Object.keys(links[keyToIdTable[key]]), n=ids.length; k < n; k++) {
+        for (var k = 0, ids = Object.keys(links[keyToIdTable[key]]), n = ids.length; k < n; k++) {
             result.push(idToKeyTable[ids[k]]);
         }
         return result;
-    }
+    };
+
+    this.removeNode = function (key) {
+        if (!this.hasNode(key)) {
+            return false;
+        }
+        var neighbours = this.connectedWith(key);
+        for (var i = 0, n = neighbours.length; i < n; i++) {
+            this.removeLink(key, neighbours[i]);
+        }
+        var id = keyToIdTable[key];
+        delete keyToIdTable[key];
+        delete idToKeyTable[id];
+        return true;
+    };
 
 }
 
