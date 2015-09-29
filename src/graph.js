@@ -100,8 +100,6 @@ function Graph(isDirected, isWeighted) {
             return false;
         }
         var neighbours = this.connectedWith(key);
-        console.log(links);
-
         for (var i = 0, n = neighbours.length; i < n; i++) {
             this.removeLink(key, neighbours[i]);
             if (isDirected) {
