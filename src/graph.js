@@ -3,6 +3,7 @@ function Graph(isDirected, isWeighted) {
     isWeighted = isWeighted || false;
     var counterId = 0,
         keyToIdTable = {},
+        idToKeyTable = {},
         links = {};
 
     this.type = function () {
@@ -16,6 +17,7 @@ function Graph(isDirected, isWeighted) {
         if (keyToIdTable[key] === undefined) {
             var id = counterId++;
             keyToIdTable[key] = id;
+            idToKeyTable[id] = key;
             links[id] = {};
             return true;
         }
@@ -80,6 +82,17 @@ function Graph(isDirected, isWeighted) {
         else {
             return links[keyToIdTable[key1]][keyToIdTable[key2]];
         }
+    };
+
+    this.connectedWith = function(key) {
+        if (!this.hasNode(key)) {
+            return undefined;
+        }
+        var result = [];
+        for (var k = 0, ids=Object.keys(links[keyToIdTable[key]]), n=ids.length; k < n; k++) {
+            result.push(idToKeyTable[ids[k]]);
+        }
+        return result;
     }
 
 }

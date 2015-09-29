@@ -125,26 +125,26 @@ describe("Graph:", function () {
 
         });
 
-        //expect(g.hasLink("One", "Two")).to.be.true;
-        //expect(g.hasLink("Two", "One")).to.be.true;
-        //expect(g.hasLink("One", "Three")).to.be.false;
-        //expect(g.hasLink("One", "Four")).to.be.false;
-        //// Weight
-        //expect(g.linkWeight("One", "Two")).to.be.equal(1);
-        //expect(g.linkWeight("Two", "One")).to.be.equal(1);
-        //expect(g.linkWeight("Two", "Three")).to.be.undefined;
-        //
-        //// Exceptions
-        //expect(function(){g.addLink("Four", "One")}).to.throw(Error, "'Four' is not found.");
-        //expect(function(){g.addLink("One", "WWW")}).to.throw(Error, "'WWW' is not found.");
-        //
-        //// Remove
-        //expect(g.removeLink("One", "Two")).to.be.true;
-        //expect(g.hasLink("One", "Two")).to.be.false;
-        //expect(g.hasLink("Two", "One")).to.be.false;
-        //expect(g.removeLink("One", "Two")).to.be.false;
-        //expect(g.linkWeight("Two", "One")).to.be.undefined;
 
+    });
+
+    describe("Connections:", function () {
+        graphs.forEach(function(test){
+            var g = test.obj();
+            g.addLink(1, 2);
+            g.addLink(1, 3);
+            g.addLink(1, 4);
+            g.addLink(2, 4);
+            g.addLink(4, 6);
+            g.addNode(5);
+            expect(g.connectedWith(1)).to.include.members([2, 3, 4]);
+            expect(g.connectedWith(1)).to.have.length(3);
+            expect(g.connectedWith(5)).to.be.deep.equal([]);
+            expect(g.connectedWith(7)).to.be.undefined;
+            if (test.type.directed) {
+                expect(g.connectedWith(4)).to.be.deep.equal([6]);
+            }
+        });
     })
 
 });
