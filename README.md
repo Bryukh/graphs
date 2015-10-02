@@ -115,6 +115,52 @@ simpleGraph.hasLink("E", "A"); // true
 weightedGraph.addLink("E", "C", 5);
 weightedGraph.linkWeight("E", "C"); // 5
 simpleGraph.linkWeight("Z", "A"); // undefined
+```
 
+### Get node connections
 
+`Graph.connectedWith(key)`
 
+Returns an array of keys of nodes, which are connected with the given node.
+For directed graphs return only nodes that are available from from the given node.
+
+```javascript
+simpleGraph.addLink("A", "D");
+simpleGraph.addLink("A", "E");
+simpleGraph.addLink("C", "A");
+simpleGraph.nodeConnections("A"); // ["E", D", "C"]
+
+directedGraph.addLink("A", "B");
+directedGraph.addLink("C", "A");
+directedGraph.nodeConnections("A"); // ["B"]
+```
+
+### Remove Nodes
+
+`Graph.removeNode(key)`
+
+Removes the node from the graph, also remove all connected links (input and output).
+
+```javascript
+directedGraph.addLink("1", "2");
+directedGraph.addLink("3", "1");
+directedGraph.addLink("1", "4");
+directedGraph.removeNode("1");
+directedGraph.hasNode("1"); // false
+directedGraph.hasLink("1", "2"); // false
+directedGraph.hasLink("3", "1"); // false
+```
+
+### Remove Links
+
+`Graph.removeLink(key1, key2)`
+
+Removes the link from the graph. The nodes are not removed, only the link.
+For directed graphs remove only one-way link from `key1` to `key2`.
+
+```javascript
+simpleGraph.addLink("5", "6");
+simpleGraph.removeLink("6", "5");
+simpleGraph.hasLink("5", "6"); // false
+simpleGraph.hasNode("5"); // true
+```
