@@ -75,4 +75,41 @@ simpleGraph.hasNode("A") // true
 simpleGraph.hasNode("E") // false
 ```
 
-#TODO
+### Add links
+
+`Graph.addLink(key1, key2)`
+
+`Graph.addLink(key1, key2, weight)`
+
+Add a link between `key1` and `key2` nodes. If nodes are not existed, then they are created.
+For directed graphs, it's created a directed link from `key1` to `key2`.
+For weighted graphs you can add the third argument `weight` (default == 1).
+`weight` must be a number.
+
+```javascript
+simpleGraph.addLink("A", "E");
+simpleGraph.hasNode("E"); // true
+weightedGraph.addLink("E", "C", 5);
+```
+
+### Check links
+
+`Graph.hasLink(key1, key2)`
+
+`Graph.linkWeight(key1, key2)`
+
+Check the existence of the link between `key1` and `key2` nodes (the order is important only for directed graphs).
+It returns `true` if the link is exist, `false` otherwise.
+
+Also you can use `linkWeight` - it has the same interface and returns `undefined` if the link doesn't exist, 
+otherwise the weight of the link (1 for unweighted graphs).
+
+```javascript
+simpleGraph.addLink("A", "E");
+simpleGraph.hasLink("E", "A"); // true
+weightedGraph.addLink("E", "C", 5);
+weightedGraph.linkWeight("E", "C"); // 5
+simpleGraph.linkWeight("Z", "A"); // undefined
+
+
+
