@@ -1,5 +1,10 @@
 # Graphs
 
+[![Travis build](https://img.shields.io/travis/Bryukh/graphs.svg)](https://travis-ci.org/Bryukh/graphs)
+[![Code coverage](https://img.shields.io/codecov/c/github/Bryukh/graphs.svg)](https://codecov.io/github/Bryukh)
+[![version](https://img.shields.io/npm/v/graphs-all.svg)](https://www.npmjs.com/package/graphs-all)
+
+
 This library contain an implementation of graph data structure
 with various method that can be useful in operations by graphs.
 
