@@ -117,6 +117,18 @@ weightedGraph.linkWeight("E", "C"); // 5
 simpleGraph.linkWeight("Z", "A"); // undefined
 ```
 
+### Get node list
+
+`Graph.nodes()`
+
+Returns an array on node keys.
+
+```javascript
+simpleGraph.addLink(1, 2);
+simpleGraph.addLink(3, 4);
+simpleGraph.nodes(); // [1, 2, 3, 4]
+```
+
 ### Get node connections
 
 `Graph.connectedWith(key)`

@@ -148,22 +148,30 @@ describe("Graph:", function () {
     });
 
     describe("Connections:", function () {
-        graphs.forEach(function(test){
+        graphs.forEach(function (test) {
             var g = test.obj();
-            g.addLink(1, 2);
-            g.addLink(1, 3);
-            g.addLink(1, 4);
-            g.addLink(2, 4);
-            g.addLink(4, 6);
-            g.addNode(5);
-            expect(g.connectedWith(1)).to.include.members([2, 3, 4]);
-            expect(g.connectedWith(1)).to.have.length(3);
-            expect(g.connectedWith(5)).to.be.deep.equal([]);
-            expect(g.connectedWith(7)).to.be.undefined;
-            if (test.type.directed) {
-                expect(g.connectedWith(4)).to.be.deep.equal([6]);
-            }
+            it("Connected with " + test.name, function () {
+                g.addLink(1, 2);
+                g.addLink(1, 3);
+                g.addLink(1, 4);
+                g.addLink(2, 4);
+                g.addLink(4, 6);
+                g.addNode(5);
+                expect(g.connectedWith(1)).to.include.members([2, 3, 4]);
+                expect(g.connectedWith(1)).to.have.length(3);
+                expect(g.connectedWith(5)).to.be.deep.equal([]);
+                expect(g.connectedWith(7)).to.be.undefined;
+                if (test.type.directed) {
+                    expect(g.connectedWith(4)).to.be.deep.equal([6]);
+                }
+            });
+            it("Node list in " + test.name, function () {
+                expect(g.nodes()).to.include.members([1, 2, 3, 4, 5, 6]);
+                expect(g.nodes(1)).to.have.length(6);
+            });
         });
+
+
     })
 
 });

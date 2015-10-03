@@ -114,6 +114,14 @@ function Graph(isDirected, isWeighted) {
         return true;
     };
 
+    this.nodes = function() {
+        var res = [];
+        for (var i = 0, k = Object.keys(idToKeyTable), L = k.length; i < L; i++) {
+            res.push(idToKeyTable[k[i]]);
+        }
+        return res;
+    }
+
 }
 
 function createGraph(isDirected, isWeighted) {
